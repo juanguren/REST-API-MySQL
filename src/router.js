@@ -21,24 +21,27 @@ router.get("/users", (req, res) =>{
     sequelize.query('SELECT * FROM users',{
         type: sequelize.QueryTypes.SELECT
     }).then((users) =>{
-        console.log(users);
+        res.status(200).json(users)
     }).catch((err) =>{
         console.log(err);
     })
 })
 
 router.post("/new_user", generateID, (req, res) =>{
+    const {firstName, lastName, email, phone} = req.body;
     let ID = req.params.userID;
     sequelize.query('insert INTO users VALUES(:id, :firstName, :lastName, :email, :phone)',{
         replacements: {
             id: ID,
-            firstName: "Juan Felipe",
-            lastName: "Aranguren",
-            email: "juan_fe_7@live.com",
-            phone: 555316
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            phone: phone
         }
     }).then((response) =>{
         res.status(201).json(response);
+    }).catch((error) =>{
+        res.status(404).json({msg: error});
     })
 })
 
