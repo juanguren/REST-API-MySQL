@@ -40,7 +40,7 @@ router.get("/users", (req, res) =>{
     }).catch((err) =>{
         console.log(err);
     })
-})
+});
 
 router.post("/new_user", generateID, (req, res) =>{
     const {firstName, lastName, email, phone} = req.body;
@@ -58,7 +58,7 @@ router.post("/new_user", generateID, (req, res) =>{
     }).catch((error) =>{
         res.status(404).json({msg: error});
     })
-})
+});
 
 router.put("/user_modify/:id", validateUserExists, (req, res) =>{
     let userID = req.params.id;
@@ -72,6 +72,14 @@ router.put("/user_modify/:id", validateUserExists, (req, res) =>{
     }).then((response) =>{
         res.status(202).json({msg: response});
     }).catch(err => console.log(err));
-})
+});
+
+router.delete("/user/delete/:id", validateUserExists, (req, res) =>{
+    const ID = req.params.id;
+    sequelize.query('DELETE FROM users WHERE id = :id', {
+        replacements: {id: ID}
+    }).then(response => res.status(200).json(response))
+        .catch(err => res.json({err: err}));
+});
 
 module.exports = router;
