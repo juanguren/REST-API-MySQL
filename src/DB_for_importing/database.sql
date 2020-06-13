@@ -53,7 +53,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`ID`, `first_name`, `last_name`, `email`, `phone`) VALUES
-(1, 'Juan', 'Felipe', 'roa53@hotmail.com', 2147483647),
+(1, 'Juan', 'Felipe', 'hey53@hotmail.com', 2147483647),
 (3, 'Hugo', 'Con', 'hy@he.com', 102030);
 
 --
